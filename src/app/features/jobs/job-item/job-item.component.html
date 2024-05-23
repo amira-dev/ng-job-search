@@ -1,0 +1,20 @@
+<div class="job-item">
+  <div class="company-logo">
+    <img [src]="job.companyLogo" [alt]="job.companyName" />
+  </div>
+  <div class="job-details">
+    <a [routerLink]="['/jobs', job.id]">
+      <div>
+        <strong>{{ job.title }}</strong>
+      </div>
+    </a>
+    <div class="info">
+      <span>Company: {{ job.companyName }}</span>
+      <span class="reference">Référence: {{ job.reference }}</span>
+    </div>
+  </div>
+  <div class="favorite-icon" *ngIf="!isFavoriteList" (click)="onToggleFavorite()">
+    <span class="icon-star" [class.active]="isFavorited" [id]="'star-' + job.id"></span>
+  </div>
+
+</div>

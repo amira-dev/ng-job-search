@@ -1,0 +1,46 @@
+/* Style pour le conteneur centré */
+.content-container {
+    width: 80%;
+    margin: 0 auto; 
+  }
+  
+  /* Style pour les onglets */
+  .nav-tabs-custom .nav-item {
+    width: 50%;
+    text-align: center;
+  }
+  
+  /* Style pour l'onglet actif */
+  .nav-tabs-custom .nav-item .nav-link.active {
+    background-color: #343a40;
+    color: #ffffff; 
+  }
+  
+  /* Style pour les liens d'onglet */
+  .nav-tabs-custom .nav-link {
+    width: 100%;
+    display: inline-block;
+    text-transform: uppercase; 
+    padding: 10px 0; 
+    border: 1px solid #ddd; 
+  }
+  
+  /* Autres styles possibles */
+  .nav-tabs-custom {
+    display: flex;
+  }
+  
+  /* Centrer le texte dans chaque élément */
+  .nav-tabs-custom .nav-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #343a40;
+  }
+  /* Style pour le conteneur centré */
+.content-container {
+    width: 80%;
+    margin: 0 auto; /* Centre le contenu horizontalement */
+  }
+  
+  

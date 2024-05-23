@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="row">
+        <ng-container *ngFor="let job of jobs$ | async">
+            <div class="col-12">
+                <app-job-item [job]="job" [isFavoriteList]="false" [isFavorited]="isFavorited(job)"
+                    (toggleFavorite)="toggleFavorite(job)">
+                </app-job-item>
+            </div>
+        </ng-container>
+    </div>
+</div>
