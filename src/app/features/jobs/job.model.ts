@@ -1,5 +1,3 @@
-import { SafeHtml } from '@angular/platform-browser';
-
 export interface Job {
   id: number;
   companyName: string;
@@ -13,5 +11,5 @@ export interface JobDetail extends Job {
   industries: string[];
   types: string[];
   description: string;
-  publishDate: Date | string;
+  publishDate: string; 
 }
