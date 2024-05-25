@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { JobService } from '../job.service';
 import { JobDetail } from '../job.model';
 
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map, filter, switchMap, tap } from 'rxjs/operators';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-job-detail',
@@ -16,26 +17,30 @@ import { catchError } from 'rxjs/operators';
 })
 export class JobDetailComponent implements OnInit {
   job$!: Observable<JobDetail | null>;
+  sanitizedDescription!: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private jobService: JobService
+    private jobService: JobService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id !== null) {
-      const jobId = Number(id);
-      this.job$ = this.jobService.getJobById(jobId).pipe(
+    this.job$ = this.route.paramMap.pipe(
+      map((paramMap: ParamMap) => paramMap.get('id')),
+      filter(id => !!id),  // Filtrer les valeurs nulles ou indéfinies
+      switchMap(id => this.jobService.getJobById(Number(id)).pipe(
+        tap((job) => {
+          this.sanitizedDescription = this.sanitizer.bypassSecurityTrustHtml(job.description).toString();
+        }),
         catchError(error => {
           console.error('Error fetching job details', error);
-          throw error; // Throw the error again to be caught by the subscriber
+          this.router.navigate(['/jobs']);
+          return of(null);
         })
-      );
-    } else {
-      this.router.navigate(['/jobs']);
-    }
+      ))
+    );
   }
 
   goBack(): void {

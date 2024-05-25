@@ -7,8 +7,9 @@ import { Job, JobDetail } from './job.model';
   providedIn: 'root'
 })
 export class JobService {
-  private apiUrl = '/jobs';
-  private favoritesKey = 'favorites';
+
+  private apiUrl: string = '/jobs';
+  private favoritesKey: string = 'favorites';
 
   constructor(private http: HttpClient) { }
 
@@ -24,7 +25,7 @@ export class JobService {
 
   // Get favorite jobs from local storage
   getFavorites(): Job[] {
-    const favorites = localStorage.getItem(this.favoritesKey);
+    const favorites: string | null = localStorage.getItem(this.favoritesKey);
     return favorites ? JSON.parse(favorites) : [];
   }
 
@@ -44,4 +45,5 @@ export class JobService {
   isFavorited(job: Job): boolean {
     return this.getFavorites().some(favorite => favorite.id === job.id);
   }
+  
 }

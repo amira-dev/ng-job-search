@@ -12,6 +12,6 @@ export interface JobDetail extends Job {
   location: string;
   industries: string[];
   types: string[];
-  description: string | SafeHtml;
+  description: string;
   publishDate: Date | string;
 }

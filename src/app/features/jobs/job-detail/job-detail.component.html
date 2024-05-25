@@ -12,7 +12,7 @@
             <span class="badge badge-primary mr-2" *ngFor="let type of job.types; index as i"
                 [id]="'type-' + i">{{ type }}</span>
             <span class="badge badge-primary mr-2" *ngFor="let industry of job.industries; index as i"
-                [id]="'industry-' + i">{{ industry }}</span>
+                [id]="'industry-' + i" [innerHTML]="industry"></span>
         </div>
     </div>
     <div class="mt-3">
@@ -20,6 +20,6 @@
         <p><strong>Location:</strong> {{ job.location }}</p>
         <p><strong>Reference:</strong> {{ job.reference }}</p>
         <p><strong>Description:</strong></p>
-        <div [innerHTML]="job.description"></div>
+        <div *ngIf="sanitizedDescription" [innerHTML]="sanitizedDescription"></div>
     </div>
 </div>
